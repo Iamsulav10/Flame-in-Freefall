@@ -1,22 +1,78 @@
-# Flame in Freefall — Team Thu
+# Flame in Freefall
 
-A small Python/Streamlit dashboard for finding NASA combustion evidence. It has **Explore**, **Compare**, **Ask**, and **Sources & privacy** screens. The team reports that this release opens locally. Source repository: https://github.com/Iamsulav10/Flame-in-Freefall . No public demo URL or completed competition submission has been verified.
+A NASA fire research dashboard by **Team Thu**, Kathmandu, Nepal.
 
-Ask includes a working evidence-based fallback. It ranks records and displays existing, cited statements. **It does not call a language model or generate new scientific claims.** No API key is needed. The source dataset contains 4 investigations, 30 traceable claims and 9 NASA sources; it contains no raw experiment files.
+We are a team of two beginners building this project for the **2026 NASA Space Apps Challenge**. Flame in Freefall uses Python and Streamlit to help people explore NASA research about fire in space.
 
-## Run on Windows
+The idea is simple: find a relevant experiment, look at its conditions, and open the original source to learn more.
 
-Install Python 3.12 from python.org. Extract this folder. Open **Terminal or PowerShell in this folder**, not the Python `>>>` prompt. Run one line at a time:
+## Why we made this
+
+NASA has research on how flames spread, how smoke moves, and how fires can be extinguished in microgravity. That information is spread across different pages, abstracts and reports. It can be difficult to know where to start or whether two experiments can be compared fairly.
+
+We brought a small collection of this research into one dashboard. Our goal is to make it easier for students and other interested readers to find useful information and check where it came from.
+
+## What you can do
+
+- **Explore:** Browse four investigations and filter them by prevention, detection or suppression.
+- **Compare:** Choose two investigations and view their reported conditions side by side, including fuel samples, oxygen, airflow, pressure and measurements. Missing details are shown as “Not reported.”
+- **Ask:** Type a question in English to find related investigations and short evidence statements with citations.
+- **Check sources:** Follow the NASA links and read about the limits of the information we included.
+
+Our categories and search rankings help people browse the research. They are our interpretations, not NASA safety ratings.
+
+## Research included
+
+The collection contains **4 investigations, 30 evidence claims and 9 NASA sources**.
+
+| Investigation | What it covers | Source |
+|---|---|---|
+| BASS-II | Ignition, flame spread and extinction in solid fuels | [NASA PSI-25](https://psi.nasa.gov/physci/repo/data/investigations/PSI-25) |
+| SAME-R | Smoke particles and the conditions in which they form and travel | [NASA PSI-101](https://psi.nasa.gov/physci/repo/data/investigations/PSI-101) |
+| FLEX | Research objectives for liquid-droplet flammability and extinguishment | [NASA PSI-69](https://psi.nasa.gov/physci/repo/data/investigations/PSI-69) |
+| Saffire-II | Material flammability and a published flame-spread comparison | [NASA NTRS](https://ntrs.nasa.gov/citations/20200000557) |
+
+We used NASA catalog descriptions, publication abstracts and a factsheet. **We did not download or analyze raw experiment data.** Each evidence claim includes its source, context and review status.
+
+Some sources report different values. For example, two smoke abstracts give transport-time ranges of 11–1800 seconds and 11–800 seconds. We keep both with their citations because we have not yet checked the full methods to explain the difference.
+
+The full references are in [SOURCES.md](docs/SOURCES.md). The collected evidence is in [data/evidence.json](data/evidence.json).
+
+## A quick example
+
+Open **Ask** and enter:
+
+> Which NASA experiments can help us understand smoke detection in a spacecraft?
+
+1. Click **Find evidence**.
+2. Read the matching investigations and the reasons they appear. SAME-R ranks first in the recorded automated test.
+3. Expand **Inspect SAME-R** to read its evidence and limitations.
+4. Open a source link to check the original information.
+5. Go to **Compare** and choose SAME-R and Saffire-II to see how their methods and reported conditions differ.
+
+This helps you find research. It does not tell you which smoke detector is safe to use in a spacecraft.
+
+## How the search works
+
+The Ask feature matches keywords and related terms against the records in our collection. It ranks the matches and returns up to three existing evidence statements with citations. If a question has little or no support in the collection, the app explains that limit.
+
+**The app does not call an AI model and does not need an API key.** A higher search score means a closer text match, not stronger scientific evidence.
+
+## Run it on your computer
+
+Python **3.12** was used for the recorded automated tests. Download and extract the repository, then open a terminal in the folder containing `app.py` and `requirements.txt`.
+
+### Windows
+
+Run these commands one at a time in Terminal or PowerShell:
 
 ```powershell
 py -3.12 -m venv .venv
-.venv\Scripts\python -m pip install -r requirements.txt
-.venv\Scripts\python -m streamlit run app.py
+.\.venv\Scripts\python.exe -m pip install -r requirements.txt
+.\.venv\Scripts\python.exe -m streamlit run app.py
 ```
 
-Open the local URL printed by Streamlit, usually `http://localhost:8501`. Stop the server with Ctrl+C. You do not need to activate the environment or change PowerShell execution policy.
-
-## Run on macOS or Linux
+### macOS or Linux
 
 ```sh
 python3.12 -m venv .venv
@@ -24,45 +80,70 @@ python3.12 -m venv .venv
 .venv/bin/python -m streamlit run app.py
 ```
 
-Start Streamlit from this folder so it reads `.streamlit/config.toml`.
+Open the address shown in the terminal, usually `http://localhost:8501`. Keep the terminal open while using the app. Press **Ctrl+C** to stop it.
 
-## Try the demo
+Start the app from the project folder so it can read `.streamlit/config.toml`.
 
-1. In **Ask**, leave the supplied smoke-detection question and click **Find evidence**.
-2. Read the short evidence summary and its source buttons. SAME-R should rank first.
-3. Expand **Inspect SAME-R**, inspect the findings and differing transport-time ranges, then open a NASA source.
-4. In **Compare**, select SAME-R and Saffire-II. Notice different measurement types and “Not reported” entries.
-5. Try an unrelated question, such as “Who won the football world cup?” It should report no matching evidence.
+### Run the tests
 
-## Understand the files
-
-| File | Responsibility |
-|---|---|
-| `app.py` | Draws screens and handles clicks |
-| `evidence.py` | Checks records, ranks matches, selects cited statements |
-| `data/evidence.json` | Stores sources, claims, conditions and study records |
-| `.streamlit/config.toml` | Sets theme, disables optional telemetry, keeps security protections |
-| `tests/` | Checks retrieval, comparison, errors and Streamlit interactions |
-| `requirements.txt` | Exact tested runtime versions; only Streamlit is a direct dependency |
-| `docs/` | Data dictionary, science explanation, privacy, deployment and submission draft |
-| `reports/` | Actual validation outputs and remaining limitations |
-
-## Test
+On Windows:
 
 ```powershell
-.venv\Scripts\python -m unittest discover -s tests -v
+.\.venv\Scripts\python.exe -m unittest discover -s tests -v
 ```
 
-On macOS/Linux replace the Python path with `.venv/bin/python`. AppTest exercises Streamlit widgets but does not prove a phone layout or public browser access. See `reports/VALIDATION.md` for what was and was not checked.
+On macOS or Linux:
 
-## Deploy and submit
+```sh
+.venv/bin/python -m unittest discover -s tests -v
+```
 
-The team repository is https://github.com/Iamsulav10/Flame-in-Freefall . Use `docs/DEPLOYMENT.md` for Streamlit Community Cloud deployment; its older repository-access status is superseded by this link. Keep secrets out of Git and chat. The current app has no external AI configuration to enable. `docs/SUBMISSION_DRAFT.md` is reviewable text, not a submitted entry. Confirm the official challenge's complete resource list, Kathmandu requirements and current form limits before final submission.
+For hosting instructions, see [DEPLOYMENT.md](docs/DEPLOYMENT.md). The repository is now available [on GitHub](https://github.com/Iamsulav10/Flame-in-Freefall), so the earlier note in that guide about not having a repository is out of date.
 
-The published global window is 14 November 2026 09:00 through 15 November 2026 23:59 local time. Build work began after 09:00 Nepal time. See `docs/RULES.md` for sources and unresolved details.
+## Current progress and limits
 
-Code and original paraphrases: MIT. NASA and other upstream materials retain their own terms. See `LICENSE`, `docs/SOURCES.md`, `docs/THIRD_PARTY.md` and `docs/AI_ASSISTANCE.md`. Teammates still need to verify the source claims.
+The prototype runs locally. A public demo link has not yet been verified.
 
-## Repository check — 14 November 2026
+The packaged release recorded **23 passing automated tests** with Python 3.12.14 and Streamlit 1.67.0, plus a local HTTP startup check. The tests cover search, comparisons, missing values, filters and input handling. The recorded dependency audit found no known advisories in the 34 pinned runtime packages, and secret scans found no confirmed credentials. These checks do not guarantee security. Details are in [VALIDATION.md](reports/VALIDATION.md).
 
-The uploaded application and data at commit `cefcde6673d9631b32ed661191e6f622d1ea40ee` matched the tested source release. This repair restores the missing requirements, configuration, README, license and ignore file. The team reports a local launch on Python 3.14.7; automated validation used Python 3.12.14. A local launch does not replace public desktop/mobile and source-link testing. Earlier documentation stating that no team repository exists is historical; deployment, current form requirements and final submission remain pending.
+There is still work to do:
+
+- Have a teammate verify each source claim.
+- Check the full experience on desktop and mobile, including opening the external sources.
+- Verify that a public deployment works without signing in.
+
+The collection is small and does not cover all NASA fire research. FLEX currently includes objectives and methods, not an extracted quantitative result. Different fuels and experiment conditions also mean that results cannot always be compared directly.
+
+The dashboard is a student research tool. It cannot monitor fires, give emergency instructions or certify equipment. Microgravity findings alone also cannot establish safe settings for the Moon or Mars.
+
+## Privacy
+
+The app has no accounts, file uploads, advertising or query database. Questions are processed in the server session. Optional Streamlit usage reporting is disabled, and CORS and XSRF protections remain enabled.
+
+Cookies, analytics and data retention still need to be checked for the actual hosting service. More information is in [PRIVACY_SECURITY.md](docs/PRIVACY_SECURITY.md).
+
+## About our use of AI
+
+We used **OpenAI ChatGPT/Codex** for substantial help with research, source extraction, programming, tests and documentation. We have recorded that assistance in [AI_ASSISTANCE.md](docs/AI_ASSISTANCE.md).
+
+The scientific measurements were not AI-generated. Our use of AI during development is separate from the app's keyword-based search.
+
+## Project files
+
+| File or folder | Purpose |
+|---|---|
+| `app.py` | Dashboard pages and controls |
+| `evidence.py` | Evidence validation, search and ranking |
+| `data/evidence.json` | Research records, claims and sources |
+| `.streamlit/config.toml` | Theme and Streamlit settings |
+| `tests/` | Automated checks |
+| `docs/` | Sources, setup instructions and project notes |
+| `reports/` | Validation results |
+
+To understand the project in more detail, see [Explain the project to judges](docs/EXPLAIN_TO_JUDGES.md). To add a verified study, see the [data dictionary](docs/DATA_DICTIONARY.md).
+
+## License and credits
+
+Our original code and paraphrases use the [MIT License](LICENSE). NASA records and third-party publications keep their own rights. See [source rights](docs/SOURCES.md) and [dependency licenses](docs/THIRD_PARTY.md).
+
+No NASA logos, source images or source PDFs are included. This project is not endorsed by NASA.
