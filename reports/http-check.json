@@ -1,0 +1,6 @@
+{
+  "health_status": 200,
+  "root_status": 200,
+  "cookie_attributes": {},
+  "scope": "Initial local HTTP requests only; no browser session or public host tested"
+}

@@ -1,0 +1,70 @@
+{
+  "checked_at": "2026-11-14T16:49:23.519516+05:45",
+  "scope": "Direct HTTP availability probe, with TLS verification enabled; not a raw-data access or browser test",
+  "results": [
+    {
+      "source_id": "PSI25",
+      "url": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-25",
+      "status": 200,
+      "final_url": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-25",
+      "content_type": "text/html; charset=utf-8",
+      "bytes_sampled": 256
+    },
+    {
+      "source_id": "PSI101",
+      "url": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-101",
+      "status": 200,
+      "final_url": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-101",
+      "content_type": "text/html; charset=utf-8",
+      "bytes_sampled": 256
+    },
+    {
+      "source_id": "PSI69",
+      "url": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-69",
+      "status": 200,
+      "final_url": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-69",
+      "content_type": "text/html; charset=utf-8",
+      "bytes_sampled": 256
+    },
+    {
+      "source_id": "SMOKE2012",
+      "url": "https://ntrs.nasa.gov/citations/20130000422",
+      "status": null,
+      "error": "TimeoutError"
+    },
+    {
+      "source_id": "SMOKE2013",
+      "url": "https://ntrs.nasa.gov/citations/20140006579",
+      "status": null,
+      "error": "TimeoutError"
+    },
+    {
+      "source_id": "SAFFIRE",
+      "url": "https://www.nasa.gov/wp-content/uploads/2025/07/spacecraft-fire-safety-demonstration-saffire.pdf?emrc=48d415",
+      "status": 200,
+      "final_url": "https://www.nasa.gov/wp-content/uploads/2025/07/spacecraft-fire-safety-demonstration-saffire.pdf?emrc=48d415",
+      "content_type": "application/pdf",
+      "bytes_sampled": 256
+    },
+    {
+      "source_id": "PMMA",
+      "url": "https://ntrs.nasa.gov/citations/20200000557",
+      "status": null,
+      "error": "TimeoutError"
+    },
+    {
+      "source_id": "BASSRESULT",
+      "url": "https://ntrs.nasa.gov/citations/20150019858",
+      "status": null,
+      "error": "TimeoutError"
+    },
+    {
+      "source_id": "FM2",
+      "url": "https://www.nasa.gov/glenn/glenn-expertise-space-exploration/physical-sciences-program/combustion-science/flammability-of-materials-on-the-moon-fm2/",
+      "status": 200,
+      "final_url": "https://www.nasa.gov/glenn/glenn-expertise-space-exploration/physical-sciences-program/combustion-science/flammability-of-materials-on-the-moon-fm2/",
+      "content_type": "text/html; charset=UTF-8",
+      "bytes_sampled": 256
+    }
+  ]
+}

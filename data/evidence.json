@@ -1,0 +1,617 @@
+{
+  "schema_version": 1,
+  "created_at": "2026-11-14T09:10:12.462703+05:45",
+  "updated_on": "2026-11-14",
+  "raw_data_downloaded": false,
+  "ai_assistance": "ChatGPT/Codex selected sources and drafted code and paraphrased records after opening. No synthetic measurements. Human source review pending. See docs/AI_ASSISTANCE.md.",
+  "sources": {
+    "PSI25": {
+      "title": "Burning and Suppression of Solids-II — PSI-25, version 4",
+      "url": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-25",
+      "persistent_id": "doi:10.60555/4qc4-de67",
+      "access_level": "Indexed catalog; reviewed during preparation; current page has no extractable text",
+      "license": "CC0-1.0 as listed in catalog",
+      "checked_on": "2026-11-14"
+    },
+    "PSI101": {
+      "title": "Smoke Aerosol Measurement Experiment-Reflight — PSI-101, version 4",
+      "url": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-101",
+      "persistent_id": "doi:10.60555/2np7-jv14",
+      "access_level": "Indexed catalog; no experiment files downloaded",
+      "license": "CC0-1.0 as listed in catalog",
+      "checked_on": "2026-11-14"
+    },
+    "PSI69": {
+      "title": "Flame Extinguishment Experiment — PSI-69, version 5",
+      "url": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-69",
+      "persistent_id": "doi:10.60555/mbq8-0451",
+      "access_level": "Indexed catalog; no experiment files downloaded",
+      "license": "CC0-1.0 as listed in catalog",
+      "checked_on": "2026-11-14"
+    },
+    "SMOKE2012": {
+      "title": "Urban et al. (2012), Particle Morphology and Size Results from the Smoke Aerosol Measurement Experiment-2",
+      "url": "https://ntrs.nasa.gov/citations/20130000422",
+      "persistent_id": "NTRS 20130000422; AIAA 2012-3536; DOI not verified",
+      "access_level": "NTRS abstract and metadata; indexed text rechecked",
+      "license": "Public Use Permitted in NTRS record; no full paper redistributed",
+      "checked_on": "2026-11-14"
+    },
+    "SMOKE2013": {
+      "title": "Urban et al. (2013), Evaluation of Low-Gravity Smoke Particulate for Spacecraft Fire Detection",
+      "url": "https://ntrs.nasa.gov/citations/20140006579",
+      "persistent_id": "NTRS 20140006579; paper 070FR-0171; DOI not verified",
+      "access_level": "NTRS abstract and metadata opened",
+      "license": "Public Use Permitted in NTRS record; no full paper redistributed",
+      "checked_on": "2026-11-14"
+    },
+    "SAFFIRE": {
+      "title": "NASA, Spacecraft Fire Safety Demonstration (Saffire)",
+      "url": "https://www.nasa.gov/wp-content/uploads/2025/07/spacecraft-fire-safety-demonstration-saffire.pdf?emrc=48d415",
+      "persistent_id": "NASA factsheet; individual Saffire-II PSI ID not verified",
+      "access_level": "Published factsheet summary; PDF text reviewed",
+      "license": "NASA media guidelines apply; facts paraphrased, no images or PDF redistributed",
+      "checked_on": "2026-11-14"
+    },
+    "PMMA": {
+      "title": "Thomsen, Fernandez-Pello, Ruff and Urban (2018; journal issue 2019), Buoyancy Effects on Concurrent Flame Spread Over Thick PMMA",
+      "url": "https://ntrs.nasa.gov/citations/20200000557",
+      "persistent_id": "doi:10.1016/j.combustflame.2018.10.016; NTRS 20200000557",
+      "access_level": "NTRS abstract and publication metadata; indexed text rechecked",
+      "license": "Paper redistribution license unverified; facts paraphrased and linked only",
+      "checked_on": "2026-11-14"
+    },
+    "BASSRESULT": {
+      "title": "Olson et al. (2015), Results from On-Board CSA-CP and CDM Sensor Readings During the Burning and Suppression of Solids II (BASS-II) Experiment in the Microgravity Science Glovebox (MSG)",
+      "url": "https://ntrs.nasa.gov/citations/20150019858",
+      "persistent_id": "NTRS 20150019858; ICES-2015-196; DOI not verified",
+      "access_level": "NTRS abstract and metadata opened; full paper not reviewed",
+      "license": "Public Use Permitted in NTRS record; no full paper redistributed",
+      "checked_on": "2026-11-14"
+    },
+    "FM2": {
+      "title": "NASA, Flammability of Materials on the Moon (FM2)",
+      "url": "https://www.nasa.gov/glenn/glenn-expertise-space-exploration/physical-sciences-program/combustion-science/flammability-of-materials-on-the-moon-fm2/",
+      "persistent_id": "NASA FM2 investigation page; DOI not reported",
+      "access_level": "NASA webpage opened; Background and Objectives",
+      "license": "NASA media guidelines apply; facts paraphrased, no media redistributed",
+      "checked_on": "2026-11-14"
+    }
+  },
+  "claims": {
+    "bass_purpose": {
+      "text": "Studies ignition, spread and extinction of solid fuels in slow forced airflow.",
+      "source_id": "PSI25",
+      "locator": "Objectives",
+      "evidence_type": "experiment_record",
+      "context": "ISS microgravity; catalog objective, not a result",
+      "quantity": null,
+      "review_status": "AI-assisted extraction; teammate verification pending"
+    },
+    "bass_sample": {
+      "text": "Solid samples include rods, slabs, films, fabrics and spherical sections.",
+      "source_id": "PSI25",
+      "locator": "Approach",
+      "evidence_type": "experiment_record",
+      "context": "Catalog geometries; not a single test matrix",
+      "quantity": null,
+      "review_status": "AI-assisted extraction; teammate verification pending"
+    },
+    "bass_oxygen": {
+      "text": "Oxygen is reduced below 21% by adding nitrogen.",
+      "source_id": "PSI25",
+      "locator": "Approach",
+      "evidence_type": "experiment_record",
+      "context": "Catalog approach; not a measured range across downloaded runs",
+      "quantity": {
+        "operator": "less_than",
+        "value": 21,
+        "unit": "% oxygen; concentration basis not specified in reviewed text"
+      },
+      "review_status": "AI-assisted extraction; teammate verification pending"
+    },
+    "bass_flow": {
+      "text": "Wind-tunnel airflow capability reaches 40 cm/s.",
+      "source_id": "PSI25",
+      "locator": "Approach",
+      "evidence_type": "experiment_record",
+      "context": "Apparatus capability; not the airflow used in every test",
+      "quantity": {
+        "operator": "up_to",
+        "value": 40,
+        "unit": "cm/s"
+      },
+      "review_status": "AI-assisted extraction; teammate verification pending"
+    },
+    "bass_sensors": {
+      "text": "CSA-CP readings cover oxygen and carbon monoxide; CDM readings cover carbon dioxide.",
+      "source_id": "BASSRESULT",
+      "locator": "Abstract",
+      "evidence_type": "published_finding",
+      "context": "Before and after BASS-II tests; reported sensor use",
+      "quantity": null,
+      "review_status": "AI-assisted extraction; teammate verification pending"
+    },
+    "bass_measure": {
+      "text": "Gas readings and burn times were used to estimate heat release.",
+      "source_id": "BASSRESULT",
+      "locator": "Abstract",
+      "evidence_type": "published_finding",
+      "context": "Paper analysis; raw sensor series not reviewed",
+      "quantity": null,
+      "review_status": "AI-assisted extraction; teammate verification pending"
+    },
+    "bass_result": {
+      "text": "The paper reports heat release below 100 W for the majority of its tests.",
+      "source_id": "BASSRESULT",
+      "locator": "Abstract",
+      "evidence_type": "published_finding",
+      "context": "Not a maximum, safety threshold, or claim about every BASS-II run",
+      "quantity": {
+        "operator": "majority_below",
+        "value": 100,
+        "unit": "W"
+      },
+      "review_status": "AI-assisted extraction; teammate verification pending"
+    },
+    "same_purpose": {
+      "text": "Measures smoke particle sizes and how generation and transport conditions affect them.",
+      "source_id": "PSI101",
+      "locator": "Objectives",
+      "evidence_type": "experiment_record",
+      "context": "ISS reflight; purpose stated in catalog",
+      "quantity": null,
+      "review_status": "AI-assisted extraction; teammate verification pending"
+    },
+    "same_instrument": {
+      "text": "The reflight added an M-pass instrument and changed heating and flow conditions.",
+      "source_id": "PSI101",
+      "locator": "Approach",
+      "evidence_type": "experiment_record",
+      "context": "SAME-R modifications; do not copy the original SAME sensor list",
+      "quantity": null,
+      "review_status": "AI-assisted extraction; teammate verification pending"
+    },
+    "same_sample": {
+      "text": "Teflon, Kapton, cotton, silicone rubber and Pyrell were heated below ignition.",
+      "source_id": "SMOKE2012",
+      "locator": "Abstract",
+      "evidence_type": "published_finding",
+      "context": "SAME-2 reflight, Expedition 24, July–September 2010; smoke production rather than open-flame spread",
+      "quantity": null,
+      "review_status": "AI-assisted extraction; teammate verification pending"
+    },
+    "same_flow": {
+      "text": "Airflow during sample heating ranged from still air to 8 cm/s.",
+      "source_id": "SMOKE2012",
+      "locator": "Abstract",
+      "evidence_type": "published_finding",
+      "context": "Flow past heated samples",
+      "quantity": {
+        "operator": "range",
+        "min": 0,
+        "max": 8,
+        "unit": "cm/s"
+      },
+      "review_status": "AI-assisted extraction; teammate verification pending"
+    },
+    "same_sensor": {
+      "text": "Diagnostics included a prototype two-moment smoke detector and TEM-grid samples for post-flight analysis.",
+      "source_id": "SMOKE2012",
+      "locator": "Abstract",
+      "evidence_type": "published_finding",
+      "context": "Particle measurements, not a certified detector performance test",
+      "quantity": null,
+      "review_status": "AI-assisted extraction; teammate verification pending"
+    },
+    "same_measure": {
+      "text": "Particle number, diameter and mass moments were measured.",
+      "source_id": "SMOKE2012",
+      "locator": "Abstract",
+      "evidence_type": "published_finding",
+      "context": "Distribution diagnostics; some derived sizes assume a log-normal distribution",
+      "quantity": null,
+      "review_status": "AI-assisted extraction; teammate verification pending"
+    },
+    "same_time2012": {
+      "text": "The 2012 abstract reports an effective smoke transport time of 11–1800 s.",
+      "source_id": "SMOKE2012",
+      "locator": "Abstract",
+      "evidence_type": "published_finding",
+      "context": "Aging chamber holding times in this publication",
+      "quantity": {
+        "operator": "range",
+        "min": 11,
+        "max": 1800,
+        "unit": "s"
+      },
+      "review_status": "AI-assisted extraction; teammate verification pending"
+    },
+    "same_result": {
+      "text": "Most average smoke particle sizes were 200–400 nm; some still-air cases were larger.",
+      "source_id": "SMOKE2012",
+      "locator": "Abstract",
+      "evidence_type": "published_finding",
+      "context": "Reported averages for these test conditions; not all particles or all spacecraft smoke",
+      "quantity": {
+        "operator": "most_averages_range",
+        "min": 200,
+        "max": 400,
+        "unit": "nm"
+      },
+      "review_status": "AI-assisted extraction; teammate verification pending"
+    },
+    "same_time2013": {
+      "text": "The 2013 abstract reports effective smoke transport times of 11–800 s.",
+      "source_id": "SMOKE2013",
+      "locator": "Abstract, second paragraph",
+      "evidence_type": "published_finding",
+      "context": "Retained separately from the 2012 paper; discrepancy not resolved",
+      "quantity": {
+        "operator": "range",
+        "min": 11,
+        "max": 800,
+        "unit": "s"
+      },
+      "review_status": "AI-assisted extraction; teammate verification pending"
+    },
+    "same_detection": {
+      "text": "The authors relate the smoke measurements to design requirements for future spacecraft smoke detectors.",
+      "source_id": "SMOKE2013",
+      "locator": "Abstract, final paragraph",
+      "evidence_type": "published_finding",
+      "context": "Design evidence, not detector certification or a recommended alarm threshold",
+      "quantity": null,
+      "review_status": "AI-assisted extraction; teammate verification pending"
+    },
+    "flex_purpose": {
+      "text": "Investigates liquid-fuel flammability limits and the effectiveness of gaseous suppressants.",
+      "source_id": "PSI69",
+      "locator": "Objectives",
+      "evidence_type": "experiment_record",
+      "context": "ISS microgravity; objective rather than demonstrated performance",
+      "quantity": null,
+      "review_status": "AI-assisted extraction; teammate verification pending"
+    },
+    "flex_sample": {
+      "text": "Liquid fuel droplets; specific fuel composition is not extracted here.",
+      "source_id": "PSI69",
+      "locator": "Objectives and Approach",
+      "evidence_type": "experiment_record",
+      "context": "Fuel-specific results require the underlying test records",
+      "quantity": null,
+      "review_status": "AI-assisted extraction; teammate verification pending"
+    },
+    "flex_pressure": {
+      "text": "The described procedure selects pressure between 0.5 and 1.5 atm.",
+      "source_id": "PSI69",
+      "locator": "Approach",
+      "evidence_type": "experiment_record",
+      "context": "Procedure range; not confirmed run coverage",
+      "quantity": {
+        "operator": "procedure_range",
+        "min": 0.5,
+        "max": 1.5,
+        "unit": "atm"
+      },
+      "review_status": "AI-assisted extraction; teammate verification pending"
+    },
+    "flex_measure": {
+      "text": "Planned measurements include droplet burning, extinction, radiation, soot and temperature.",
+      "source_id": "PSI69",
+      "locator": "Objectives",
+      "evidence_type": "experiment_record",
+      "context": "Measurement goals; no numerical outcome extracted",
+      "quantity": null,
+      "review_status": "AI-assisted extraction; teammate verification pending"
+    },
+    "flex_suppress": {
+      "text": "Carbon dioxide, helium and sulfur hexafluoride are listed as gaseous suppressants to study.",
+      "source_id": "PSI69",
+      "locator": "Objectives",
+      "evidence_type": "experiment_record",
+      "context": "Not a recommended cabin suppressant, dose or exposure limit",
+      "quantity": null,
+      "review_status": "AI-assisted extraction; teammate verification pending"
+    },
+    "saffire_purpose": {
+      "text": "Studies material flammability in an uncrewed Cygnus vehicle after it leaves the station.",
+      "source_id": "SAFFIRE",
+      "locator": "PDF page 1, introduction and Saffire-II section",
+      "evidence_type": "experiment_record",
+      "context": "Mission summary; nine samples described",
+      "quantity": null,
+      "review_status": "AI-assisted extraction; teammate verification pending"
+    },
+    "saffire_sample": {
+      "text": "The sample set includes cotton/fiberglass, Nomex and acrylic glass.",
+      "source_id": "SAFFIRE",
+      "locator": "PDF page 1, Saffire-II section",
+      "evidence_type": "experiment_record",
+      "context": "Not all materials were tested under one identical condition",
+      "quantity": null,
+      "review_status": "AI-assisted extraction; teammate verification pending"
+    },
+    "saffire_geometry": {
+      "text": "This paper studies flame spread over 10 mm thick PMMA.",
+      "source_id": "PMMA",
+      "locator": "Abstract",
+      "evidence_type": "published_finding",
+      "context": "Specific thick-slab comparison; not the entire Saffire-II campaign",
+      "quantity": {
+        "operator": "equal",
+        "value": 10,
+        "unit": "mm thickness"
+      },
+      "review_status": "AI-assisted extraction; teammate verification pending"
+    },
+    "saffire_pressure": {
+      "text": "The Saffire-II microgravity comparison was at 100 kPa.",
+      "source_id": "PMMA",
+      "locator": "Abstract",
+      "evidence_type": "published_finding",
+      "context": "Ground comparisons used 40–100 kPa",
+      "quantity": {
+        "operator": "equal",
+        "value": 100,
+        "unit": "kPa"
+      },
+      "review_status": "AI-assisted extraction; teammate verification pending"
+    },
+    "saffire_flow": {
+      "text": "Airflow in the Saffire-II PMMA comparison was 200 mm/s.",
+      "source_id": "PMMA",
+      "locator": "Abstract",
+      "evidence_type": "published_finding",
+      "context": "Concurrent flame spread; same stated forced-flow speed in ground comparison",
+      "quantity": {
+        "operator": "equal",
+        "value": 200,
+        "unit": "mm/s"
+      },
+      "review_status": "AI-assisted extraction; teammate verification pending"
+    },
+    "saffire_measure": {
+      "text": "The study compares concurrent flame spread over PMMA between ground and microgravity tests.",
+      "source_id": "PMMA",
+      "locator": "Abstract",
+      "evidence_type": "published_finding",
+      "context": "No raw flame-spread time series included",
+      "quantity": null,
+      "review_status": "AI-assisted extraction; teammate verification pending"
+    },
+    "saffire_result": {
+      "text": "Reducing ground-test pressure slowed flame spread toward the microgravity result.",
+      "source_id": "PMMA",
+      "locator": "Abstract",
+      "evidence_type": "published_finding",
+      "context": "Material- and method-specific result; not a universal gravity conversion",
+      "quantity": null,
+      "review_status": "AI-assisted extraction; teammate verification pending"
+    },
+    "gravity_limit": {
+      "text": "Microgravity findings alone cannot certify fire safety on the Moon or Mars.",
+      "source_id": "FM2",
+      "locator": "Background and Objectives",
+      "evidence_type": "interpretation",
+      "context": "Team/AI scope judgment: partial gravity requires its own validation; FM2 motivates dedicated lunar tests",
+      "quantity": null,
+      "review_status": "AI-assisted extraction; teammate verification pending"
+    }
+  },
+  "studies": [
+    {
+      "id": "bass",
+      "name": "BASS-II",
+      "title": "Burning and Suppression of Solids-II",
+      "categories": [
+        "Prevention",
+        "Suppression"
+      ],
+      "category_basis": "Team/AI relevance classification, not a NASA ranking",
+      "purpose": "bass_purpose",
+      "findings": [
+        "bass_result"
+      ],
+      "fields": {
+        "sample": [
+          "bass_sample"
+        ],
+        "oxygen": [
+          "bass_oxygen"
+        ],
+        "airflow": [
+          "bass_flow"
+        ],
+        "pressure": [],
+        "geometry": [],
+        "sensors": [
+          "bass_sensors"
+        ],
+        "measurements": [
+          "bass_measure"
+        ],
+        "transport_time": []
+      },
+      "keywords": [
+        "solid",
+        "flame",
+        "spread",
+        "ignition",
+        "extinction",
+        "oxygen",
+        "ventilation",
+        "prevention",
+        "suppression",
+        "combustion",
+        "carbon monoxide",
+        "heat"
+      ],
+      "scope": "Catalog plus published abstract; no raw experiment files reviewed.",
+      "source_ids": [
+        "PSI25",
+        "BASSRESULT"
+      ]
+    },
+    {
+      "id": "same",
+      "name": "SAME-R",
+      "title": "Smoke Aerosol Measurement Experiment-Reflight",
+      "categories": [
+        "Detection"
+      ],
+      "category_basis": "Team/AI relevance classification, not a NASA ranking",
+      "purpose": "same_purpose",
+      "findings": [
+        "same_result",
+        "same_detection"
+      ],
+      "fields": {
+        "sample": [
+          "same_sample"
+        ],
+        "oxygen": [],
+        "airflow": [
+          "same_flow"
+        ],
+        "pressure": [],
+        "geometry": [],
+        "sensors": [
+          "same_instrument",
+          "same_sensor"
+        ],
+        "measurements": [
+          "same_measure"
+        ],
+        "transport_time": [
+          "same_time2012",
+          "same_time2013"
+        ]
+      },
+      "keywords": [
+        "smoke",
+        "detection",
+        "detector",
+        "aerosol",
+        "particle",
+        "size",
+        "transport",
+        "airflow",
+        "sensor",
+        "alarm"
+      ],
+      "scope": "Catalog plus reflight publication abstracts; transport-time ranges differ between papers.",
+      "source_ids": [
+        "PSI101",
+        "SMOKE2012",
+        "SMOKE2013"
+      ]
+    },
+    {
+      "id": "flex",
+      "name": "FLEX",
+      "title": "Flame Extinguishment Experiment",
+      "categories": [
+        "Suppression",
+        "Prevention"
+      ],
+      "category_basis": "Team/AI relevance classification, not a NASA ranking",
+      "purpose": "flex_purpose",
+      "findings": [],
+      "fields": {
+        "sample": [
+          "flex_sample"
+        ],
+        "oxygen": [],
+        "airflow": [],
+        "pressure": [
+          "flex_pressure"
+        ],
+        "geometry": [],
+        "sensors": [],
+        "measurements": [
+          "flex_measure"
+        ],
+        "transport_time": []
+      },
+      "keywords": [
+        "liquid",
+        "droplet",
+        "extinction",
+        "suppressant",
+        "suppression",
+        "flammability",
+        "carbon dioxide",
+        "helium",
+        "sulfur hexafluoride"
+      ],
+      "scope": "Catalog objectives only; no quantitative published outcome extracted.",
+      "source_ids": [
+        "PSI69"
+      ]
+    },
+    {
+      "id": "saffire",
+      "name": "Saffire-II",
+      "title": "Spacecraft Fire Experiment II",
+      "categories": [
+        "Prevention"
+      ],
+      "category_basis": "Team/AI relevance classification, not a NASA ranking",
+      "purpose": "saffire_purpose",
+      "findings": [
+        "saffire_result"
+      ],
+      "fields": {
+        "sample": [
+          "saffire_sample"
+        ],
+        "oxygen": [],
+        "airflow": [
+          "saffire_flow"
+        ],
+        "pressure": [
+          "saffire_pressure"
+        ],
+        "geometry": [
+          "saffire_geometry"
+        ],
+        "sensors": [],
+        "measurements": [
+          "saffire_measure"
+        ],
+        "transport_time": []
+      },
+      "keywords": [
+        "solid",
+        "flame",
+        "spread",
+        "flammability",
+        "material",
+        "pmma",
+        "acrylic",
+        "pressure",
+        "cygnus",
+        "prevention"
+      ],
+      "scope": "Factsheet plus one published PMMA comparison; individual PSI ID unverified.",
+      "source_ids": [
+        "SAFFIRE",
+        "PMMA"
+      ]
+    }
+  ],
+  "global_limit_claim": "gravity_limit",
+  "extra_claims": [
+    "flex_suppress"
+  ],
+  "discrepancies": [
+    {
+      "claim_ids": [
+        "same_time2012",
+        "same_time2013"
+      ],
+      "note": "The reviewed abstracts report different transport-time ranges. Both are preserved; full methods and test matrices must be checked before reconciling them."
+    }
+  ]
+}
