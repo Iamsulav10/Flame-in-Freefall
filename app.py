@@ -1,4 +1,3 @@
-"""Team Thu's Streamlit interface. Scientific content lives in data/evidence.json."""
 
 import time
 from pathlib import Path
@@ -10,7 +9,7 @@ from evidence import (
     comparison_warnings, load_data, rate_allowed, search_studies, study_by_id,
 )
 
-DEMO_QUESTION = "Which NASA experiments can help us understand smoke detection in a spacecraft?"
+DEMO_QUESTION = "Which NASA experiments can help us understand smoke detection in a spacecraft?" #defult question 
 ROOT = Path(__file__).parent
 TYPE_LABELS = {
     "experiment_record": "Experiment record / stated approach",
@@ -56,7 +55,7 @@ def render_study(data, study, expanded=False):
             st.text(source["access_level"])
             st.link_button(f"Open NASA record · {source_id}", source["url"])
 
-
+#ask page
 def ask_page(data):
     st.header("Ask a fire safety question")
     st.write("Find relevant experiments, read the evidence, and open the NASA source.")
@@ -104,7 +103,7 @@ def ask_page(data):
             st.text("Related terms: " + ", ".join(result.related_matches))
         render_study(data, study)
 
-
+#explore page
 def explore_page(data):
     st.header("Explore investigations")
     category = st.selectbox("Fire safety purpose", ["All", "Prevention", "Detection", "Suppression"])
@@ -125,7 +124,7 @@ def explore_page(data):
             st.caption(study["scope"])
             render_study(data, study)
 
-
+ #compare page
 def compare_page(data):
     st.header("Compare methods and conditions")
     st.write("Read what each source reports before comparing outcomes.")
@@ -154,6 +153,7 @@ def compare_page(data):
         st.warning(data["discrepancies"][0]["note"])
     st.caption("No outcome chart is shown: these sources do not provide a common, comparable measurement series.")
 
+#about section
 
 def about_page(data):
     st.header("Sources, limits and privacy")
@@ -178,6 +178,7 @@ def about_page(data):
     st.subheader("AI assistance")
     st.write("OpenAI ChatGPT/Codex assisted research, source extraction, code, tests and documentation. Scientific measurements were not generated. Build work began after the event opening. See the packaged AI assistance log for work performed and pending human review.")
 
+#main function
 
 def main():
     st.set_page_config(page_title="Flame in Freefall · Team Thu", layout="wide")
