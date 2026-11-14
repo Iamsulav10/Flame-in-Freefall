@@ -4,7 +4,7 @@
 
 The application processes the question on its Python server and keeps the current question, answer and request timestamps in Streamlit session state. The app adds no database, accounts, uploads, advertising, analytics code or query logs. It does not intentionally persist these values to disk. Exact memory cleanup depends on the framework session lifecycle; this is not a retention guarantee.
 
-No external AI provider is implemented, configured or called. API usage and model spend are zero for this release. ChatGPT/Codex assistance during development is a separate activity disclosed in `AI_ASSISTANCE.md`.
+Optional Gemini integration is now implemented, disabled by default and not live-tested. When enabled and explicitly selected by the visitor, it transmits the question and selected NASA evidence to Google. See GEMINI_SETUP.md for limits, data use and restrictions. ChatGPT/Codex assistance during development is a separate activity disclosed in `AI_ASSISTANCE.md`.
 
 Optional framework usage statistics are disabled in `.streamlit/config.toml`. CORS and XSRF protections stay enabled. Installed Streamlit 1.67.0's configuration describes an XSRF security cookie and SameSite=Lax. Initial HTTP cookie observations are in `reports/http-check.json`; they do not establish every browser or host cookie. Do not turn off XSRF merely to remove a cookie.
 
@@ -30,3 +30,6 @@ Sources:
 Choose a provider and verify its current API data-use/retention terms before implementation. Explain exactly what question and evidence text are sent. Use a server-side secret store, a fixed approved API endpoint, bounded response tokens and timeout, a global daily cost budget plus per-session limits, no tools, and a structured list of approved claim IDs. Do not accept generated scientific claims merely because they carry a citation. Test timeout, malformed output, invalid IDs, budget exhaustion, injection and redacted errors before enabling it. Keep local retrieval available when disabled or unavailable. Update both the privacy notice and AI disclosure with the integration actually used.
 
 Known-advisory and secret-pattern scans are limited checks. They do not prove zero vulnerabilities or protection against all future attacks.
+
+## Gemini update
+The current implementation and its limitations are documented in GEMINI_SETUP.md. No new runtime dependencies were added. No live provider requests were made during development.

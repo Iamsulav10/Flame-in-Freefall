@@ -12,6 +12,12 @@ NASA has research on how flames spread, how smoke moves, and how fires can be ex
 
 We brought a small collection of this research into one dashboard. Our goal is to make it easier for students and other interested readers to find useful information and check where it came from.
 
+## Dashboard upgrade
+
+The **Insights** workspace ranks studies for smoke detection, solid flame spread or liquid-droplet suppression. It shows an evidence summary, the points behind the ranking, a prepared interpretation, evidence gaps and a next research step. Select a spacecraft, Moon or Mars context to see the limits of applying the evidence. Context selection does not pretend to predict performance in partial gravity.
+
+Interpretations are prepared Team Thu/AI-assisted analysis linked to NASA evidence. Optional Gemini synthesis is implemented in Ask, disabled by default and not yet live-tested. See [upgrade notes](docs/INSIGHTS_UPGRADE.md) for tests and limitations.
+
 ## What you can do
 
 - **Explore:** Browse four investigations and filter them by prevention, detection or suppression.
@@ -56,7 +62,7 @@ This helps you find research. It does not tell you which smoke detector is safe 
 
 The Ask feature matches keywords and related terms against the records in our collection. It ranks the matches and returns up to three existing evidence statements with citations. If a question has little or no support in the collection, the app explains that limit.
 
-**The app does not call an AI model and does not need an API key.** A higher search score means a closer text match, not stronger scientific evidence.
+**Local search needs no API key. Optional Gemini synthesis requires server-side configuration and explicit visitor opt-in.** A higher search score means a closer text match, not stronger scientific evidence.
 
 ## Run it on your computer
 
@@ -147,3 +153,6 @@ To understand the project in more detail, see [Explain the project to judges](do
 Our original code and paraphrases use the [MIT License](LICENSE). NASA records and third-party publications keep their own rights. See [source rights](docs/SOURCES.md) and [dependency licenses](docs/THIRD_PARTY.md).
 
 No NASA logos, source images or source PDFs are included. This project is not endorsed by NASA.
+
+## Optional Gemini setup
+Read [GEMINI_SETUP.md](docs/GEMINI_SETUP.md) before enabling AI, including the audience restrictions and privacy notice.

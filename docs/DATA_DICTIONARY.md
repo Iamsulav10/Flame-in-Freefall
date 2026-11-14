@@ -40,3 +40,7 @@ Numbers keep their original units and qualifiers: “up to” describes a capabi
 6. Run the tests; add a meaningful retrieval example for the new study. Update the UI's collection count and submission description when the collection size changes.
 
 No source PDFs, images or raw measurements are bundled. If adding actual experiment files later, add file names, checksums, run IDs, licenses and a reproducible extraction script. Revise the schema and validation rather than implying the present summaries are raw data.
+
+
+## Prepared insights
+`insights.py` stores interpretations separately from experimental claims. Each study entry has a `title`, `interpretation`, `basis` (existing claim IDs), `gap`, and `next_step`. These are Team Thu/AI-assisted judgments, not NASA findings. For another study, verify the source first, add provenance-bearing claims, then reference those claim IDs in any interpretation. Never insert inferred measurements into the evidence JSON.

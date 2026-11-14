@@ -3,6 +3,7 @@ import time
 from pathlib import Path
 
 import streamlit as st
+from gemini_client import synthesize
 
 from insights import INSIGHTS, evidence_coverage, ranked_insights, ranking_breakdown
 
@@ -61,7 +62,15 @@ def render_study(data, study, expanded=False):
 def ask_page(data):
     st.header("Ask a fire safety question")
     st.write("Find relevant experiments, read the evidence, and open the NASA source.")
-    st.caption("Local evidence search. No generative AI service is connected; questions are not sent to an AI provider.")
+    try:
+        ai_config = {key: st.secrets.get(key) for key in ("GEMINI_ENABLED", "GEMINI_API_KEY", "GEMINI_MODEL")}
+    except (FileNotFoundError, st.errors.StreamlitSecretNotFoundError):
+        ai_config = {}
+    ai_ready = ai_config.get("GEMINI_ENABLED") is True and bool(ai_config.get("GEMINI_API_KEY"))
+    st.caption("Local evidence search works without AI. Optional Gemini synthesis is available only when configured by the operator.")
+    if ai_ready:
+        st.info("Optional AI sends your question and selected NASA evidence to Google. Free-tier content can be used for product improvement and human review. Google documents 55-day abuse-monitoring retention; this is not a promise that all data is deleted then. Do not enter personal or confidential information.")
+    use_ai = st.checkbox("Send this question and selected evidence to Gemini", value=False, disabled=not ai_ready)
     with st.form("question_form"):
         question = st.text_area("Your question", value=DEMO_QUESTION,
                                 max_chars=MAX_QUESTION_LENGTH, height=110,
@@ -76,7 +85,7 @@ def ask_page(data):
             st.session_state["requests"] = history
             if allowed:
                 try:
-                    st.session_state["answer"] = answer_question(question, data)
+                    st.session_state["answer"] = (synthesize(question, data, ai_config) if use_ai else answer_question(question, data))
                     st.session_state["asked_question"] = question
                 except ValueError:
                     st.session_state.pop("answer", None)
@@ -92,6 +101,14 @@ def ask_page(data):
     st.caption(response["mode"])
     if response["notice"]:
         st.info(response["notice"])
+    for item in response.get("ai_items", []):
+        st.caption("AI " + item["kind"])
+        st.text(item["text"])
+        for ref in item["claim_ids"]:
+            claim = data["claims"][ref]
+            st.link_button(f"Evidence: {ref} · {claim['locator']}", data["sources"][claim["source_id"]]["url"])
+    if response.get("ai_items"):
+        st.warning("AI wording is not independently verified. Valid citations do not guarantee that an interpretation is correct. Review the original evidence below.")
     for ref in response["claim_ids"]:
         render_claim(data, ref)
     if response["claim_ids"] and response["results"]:
@@ -125,7 +142,7 @@ def render_interpretation(data, study):
 def insights_page(data):
     st.header("Fire safety insights")
     st.write("Choose a research question, inspect the ranked evidence, and see what it can—and cannot—support.")
-    st.caption("Prepared interpretations and transparent local ranking. No generative AI provider is connected.")
+    st.caption("Prepared interpretations and transparent local ranking. Optional Gemini synthesis is available in Ask only when configured; this page uses prepared interpretations.")
     focus = st.selectbox("Research focus", ["Smoke detection", "Solid flame spread", "Liquid droplet suppression", "Custom question"])
     prompts = {"Smoke detection": "smoke detection", "Solid flame spread": "solid flame spread", "Liquid droplet suppression": "liquid droplet suppression"}
     question = st.text_input("Research question", value=prompts.get(focus, ""), max_chars=MAX_QUESTION_LENGTH, key="insight_question_" + focus)
@@ -221,12 +238,15 @@ def about_page(data):
     render_claim(data, data["global_limit_claim"])
     st.write("The Moon and Mars have partial gravity. These microgravity records can guide further research; they cannot certify a detector or supply operational fire-response instructions.")
     st.subheader("How answers work")
-    st.write("Words and a small, documented synonym list rank the four studies. The answer displays up to three existing evidence statements with their citations. It does not generate new scientific claims. Search scores measure word relevance only.")
+    st.write("Words and a small, documented synonym list rank the four studies. The answer displays up to three existing evidence statements with their citations. Optional Gemini synthesis generates separately labeled wording from the retrieved evidence. Citation IDs and output structure are validated, but factual correctness still requires human review. Search scores measure word relevance only.")
     st.subheader("Privacy and cookies")
     st.write("Questions are processed by the Python server and kept in the current Streamlit session. This app does not intentionally save questions to files, databases or application logs. It has no accounts, uploads, advertising or app analytics. Do not enter personal or confidential information.")
-    st.write("No external AI provider is configured or called. Optional Streamlit usage reporting is disabled. Streamlit's security protections remain enabled and may set a security cookie. Hosting providers may keep connection logs and analytics; this demo is hosted on Streamlit Community Cloud, which documents viewer analytics. We have not independently verified all host retention periods or cookies.")
+    st.write("Gemini is optional and disabled by default. When enabled, only an explicit Ask request sends the question and selected evidence to Google; no chat history is sent. Optional Streamlit usage reporting is disabled. Streamlit's security protections remain enabled and may set a security cookie. Hosting providers may keep connection logs and analytics; this demo is hosted on Streamlit Community Cloud, which documents viewer analytics. We have not independently verified all host retention periods or cookies.")
     st.link_button("Streamlit configuration and cookie settings", "https://docs.streamlit.io/develop/api-reference/configuration/config.toml")
     st.link_button("Community Cloud viewer analytics", "https://docs.streamlit.io/deploy/streamlit-community-cloud/manage-your-app/app-analytics")
+    st.write("For Gemini free-tier requests, Google may use input and output for product improvement, including human review. Its abuse-monitoring policy documents 55-day retention for prompts, context and responses; other processing may have different retention. Never submit sensitive information.")
+    st.link_button("Google Gemini data-use terms", "https://ai.google.dev/gemini-api/terms")
+    st.link_button("Google abuse-monitoring retention", "https://ai.google.dev/gemini-api/docs/usage-policies")
     st.subheader("Sources and licenses")
     st.write("Team Thu's original code and paraphrases are MIT licensed. Upstream materials retain their own rights. No NASA logos, source PDFs or source images are bundled. This student project is not endorsed by NASA.")
     for source_id, source in data["sources"].items():

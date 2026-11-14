@@ -14,3 +14,10 @@ AI selected relevant source passages and paraphrased them. Each data claim carri
 Validation was executed by the assistant through Python tests, Streamlit AppTest, local HTTP checks, dependency auditing and secret scans; actual results and blocked browser checks belong in `reports/VALIDATION.md`. Do not infer human testing from automated test results.
 
 Before submission, both teammates should inspect every scientific claim, run the app, explain the three workflows to one another, and update this log with what they personally reviewed. Add any later tools or provider calls accurately. Preserve this disclosure in the repository and the submission form.
+
+
+## 15 November 2026 — Insights upgrade
+ChatGPT/Codex added prepared, source-linked interpretations in insights.py, an Insights workspace, ranking breakdowns, evidence-coverage counts and tests. Existing measurements and source records were retained. No external AI inference was called. Human review of the interpretations remains required.
+
+## 15 November 2026 — Optional Gemini
+Codex wrote the optional Gemini REST adapter, citation/output checks, opt-in UI, limits, documentation and mocked tests. No live model call was made. The pasted credential was not used or stored. Scientific correctness of generated wording requires review; no claim of superintelligence is made.

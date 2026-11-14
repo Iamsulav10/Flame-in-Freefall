@@ -10,6 +10,7 @@ class AppJourneyTests(unittest.TestCase):
     def app(self):
         app = AppTest.from_file(str(APP), default_timeout=15).run()
         self.assertFalse(app.exception)
+        app.radio[0].set_value("Ask").run()
         return app
 
     def test_demo_question_and_source_links(self):
