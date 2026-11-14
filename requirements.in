@@ -1,0 +1,2 @@
+# Only direct runtime dependency. requirements.txt pins its dependency closure.
+streamlit==1.67.0
