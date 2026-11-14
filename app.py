@@ -4,6 +4,8 @@ from pathlib import Path
 
 import streamlit as st
 
+from insights import INSIGHTS, evidence_coverage, ranked_insights, ranking_breakdown
+
 from evidence import (
     FIELD_LABELS, MAX_QUESTION_LENGTH, answer_question, claim_ids_for,
     comparison_warnings, load_data, rate_allowed, search_studies, study_by_id,
@@ -92,6 +94,8 @@ def ask_page(data):
         st.info(response["notice"])
     for ref in response["claim_ids"]:
         render_claim(data, ref)
+    if response["claim_ids"] and response["results"]:
+        render_interpretation(data, study_by_id(data, response["results"][0].study_id))
     if response["results"]:
         st.subheader("Matching investigations")
         st.caption("Scores count topic matches. They are not scientific confidence, risk or detector-performance scores.")
@@ -104,6 +108,61 @@ def ask_page(data):
         render_study(data, study)
 
 #explore page
+def render_interpretation(data, study):
+    insight = INSIGHTS[study["id"]]
+    st.subheader(insight["title"])
+    st.caption("Prepared Team Thu / AI-assisted interpretation · not a NASA recommendation")
+    st.text(insight["interpretation"])
+    for ref in insight["basis"]:
+        claim = data["claims"][ref]
+        st.link_button(f"Basis: {ref} · {claim['locator']}", data["sources"][claim["source_id"]]["url"])
+    st.markdown("**Evidence gap**")
+    st.text(insight["gap"])
+    st.markdown("**Next research step**")
+    st.text(insight["next_step"])
+
+
+def insights_page(data):
+    st.header("Fire safety insights")
+    st.write("Choose a research question, inspect the ranked evidence, and see what it can—and cannot—support.")
+    st.caption("Prepared interpretations and transparent local ranking. No generative AI provider is connected.")
+    focus = st.selectbox("Research focus", ["Smoke detection", "Solid flame spread", "Liquid droplet suppression", "Custom question"])
+    prompts = {"Smoke detection": "smoke detection", "Solid flame spread": "solid flame spread", "Liquid droplet suppression": "liquid droplet suppression"}
+    question = st.text_input("Research question", value=prompts.get(focus, ""), max_chars=MAX_QUESTION_LENGTH, key="insight_question_" + focus)
+    category = st.selectbox("Purpose", ["All", "Prevention", "Detection", "Suppression"])
+    environment = st.selectbox("Application context", ["Spacecraft microgravity", "Moon surface", "Mars surface"])
+    if environment != "Spacecraft microgravity":
+        st.warning("These records do not validate surface-gravity operation. The ranking is unchanged: this collection has no basis for a Moon- or Mars-specific performance ranking.")
+        render_claim(data, data["global_limit_claim"])
+    rows = ranked_insights(question, data, category)
+    if not rows:
+        st.info("No matching evidence. Try smoke detection, solid flame spread or liquid droplets.")
+        return
+    response = answer_question(question, data)
+    if response["notice"]:
+        st.info(response["notice"])
+    st.caption("Ranking = 4 points per topic match + 2 per evidence-text match + up to 3 related-term points. Scores are not confidence or safety ratings.")
+    for rank, (result, insight) in enumerate(rows, 1):
+        study = study_by_id(data, result.study_id)
+        with st.container(border=True):
+            st.subheader(f"{rank}. {study['name']} · {result.score} relevance points")
+            st.text("Matched terms: " + ", ".join(result.direct_matches))
+            breakdown = ranking_breakdown(question, data, result)
+            st.caption(" · ".join(f"{name}: {value}" for name, value in breakdown.items()))
+            coverage = evidence_coverage(data, study)
+            st.caption(f"Included evidence: {coverage['Published statements']} published statements; {coverage['Reported comparison fields']}/{coverage['Total comparison fields']} comparison fields reported. These are collection counts, not quality scores.")
+            st.markdown("**Evidence summary**")
+            for ref in ([study["purpose"]] + study["findings"][:1]):
+                render_claim(data, ref)
+            if not study["findings"]:
+                st.info("Catalog objectives only: no quantitative finding extracted.")
+            if response["claim_ids"]:
+                render_interpretation(data, study)
+            else:
+                st.caption("Question coverage is weak. Inspect related evidence; no interpretation is offered as an answer.")
+            render_study(data, study)
+
+
 def explore_page(data):
     st.header("Explore investigations")
     category = st.selectbox("Fire safety purpose", ["All", "Prevention", "Detection", "Suppression"])
@@ -165,7 +224,7 @@ def about_page(data):
     st.write("Words and a small, documented synonym list rank the four studies. The answer displays up to three existing evidence statements with their citations. It does not generate new scientific claims. Search scores measure word relevance only.")
     st.subheader("Privacy and cookies")
     st.write("Questions are processed by the Python server and kept in the current Streamlit session. This app does not intentionally save questions to files, databases or application logs. It has no accounts, uploads, advertising or app analytics. Do not enter personal or confidential information.")
-    st.write("No external AI provider is configured or called. Optional Streamlit usage reporting is disabled. Streamlit's security protections remain enabled and may set a security cookie. Hosting providers may keep connection logs and analytics; no public host has been verified for this release. A host's retention and cookie behavior must be checked before publication.")
+    st.write("No external AI provider is configured or called. Optional Streamlit usage reporting is disabled. Streamlit's security protections remain enabled and may set a security cookie. Hosting providers may keep connection logs and analytics; this demo is hosted on Streamlit Community Cloud, which documents viewer analytics. We have not independently verified all host retention periods or cookies.")
     st.link_button("Streamlit configuration and cookie settings", "https://docs.streamlit.io/develop/api-reference/configuration/config.toml")
     st.link_button("Community Cloud viewer analytics", "https://docs.streamlit.io/deploy/streamlit-community-cloud/manage-your-app/app-analytics")
     st.subheader("Sources and licenses")
@@ -189,9 +248,9 @@ def main():
     except (ValueError, KeyError, OSError, TypeError):
         st.error("The evidence collection could not be loaded. Please contact the project team.")
         st.stop()
-    page = st.radio("Workspace", ["Ask", "Explore", "Compare", "Sources & privacy"], horizontal=True, label_visibility="collapsed")
+    page = st.radio("Workspace", ["Insights", "Ask", "Explore", "Compare", "Sources & privacy"], horizontal=True, label_visibility="collapsed")
     st.divider()
-    {"Ask": ask_page, "Explore": explore_page, "Compare": compare_page,
+    {"Insights": insights_page, "Ask": ask_page, "Explore": explore_page, "Compare": compare_page,
      "Sources & privacy": about_page}[page](data)
     st.divider()
     st.caption("Evidence discovery for learning and research. Published summaries, not spacecraft safety certification.")
